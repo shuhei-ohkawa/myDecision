@@ -65,8 +65,9 @@ export default function ConsultNotePage() {
     try {
       const result = await summarizeTranscription(transcription);
       setSummary(result);
-    } catch {
-      setSummary('要約の生成に失敗しました。もう一度お試しください。');
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : '不明なエラー';
+      setSummary(`要約の生成に失敗しました: ${msg}`);
     } finally {
       setIsLoadingSummary(false);
     }

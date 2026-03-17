@@ -38,7 +38,8 @@ ${transcription}`,
     const summary = message.content[0].type === 'text' ? message.content[0].text : '';
     return res.status(200).json({ success: true, data: { summary } });
   } catch (error) {
-    console.error('summarize error:', error);
-    return res.status(500).json({ success: false, error: 'AI要約に失敗しました' });
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error('summarize error:', msg);
+    return res.status(500).json({ success: false, error: msg });
   }
 }
